@@ -26,28 +26,23 @@
   },
   "sites": [
     {
-      "name": "Pararius",
-      "useDriver": false,
-      "url": "https://www.pararius.com",
-      "path": "/apartments/utrecht/0-1600/2-rooms",
-      "start": "<h2 class=\"listing-search-item__title\">",
-      "finish": "</section",
-      "createUniqueKeyFrom": [
-        "items.postalCode",
-        "items.cost",
-        "items.area"
-      ],
-      "doActionIf": "items.price >= 1000 and items.specifications not contain '---'",
+      "name": "H2S-book-one-bedroom",
+      "useDriver": true,
+      "url": "https://holland2stay.com",
+      "path": "/residences?page=1&available_to_book%5Bfilter%5D=Available+to+book%2C179&maximum_number_of_persons%5Bfilter%5D=Two+%28only+couples%29%2C23&no_of_rooms%5Bfilter%5D=1%2C105",
+      "queryParams": {},
+      "start": "<div class=\"residence_block\">",
+      "finish": "<div class=\"residence_block\">",
       "items": [
         {
           "name": "Title",
-          "start": "<h2 class=\"listing-search-item__title\">",
-          "finish": "</h2>"
+          "start": "<h5 class=\"residence_name\">",
+          "finish": "</h5>"
         },
         {
           "name": "Link",
-          "start": "<h2 class=\"listing-search-item__title\">",
-          "finish": "</h2>",
+          "start": "<h5 class=\"residence_name\">",
+          "finish": "</h5>",
           "extracts": [
             {
               "name": "Link",
@@ -69,8 +64,8 @@
         },
         {
           "name": "Price",
-          "start": "<div class=\"listing-search-item__price\">",
-          "finish": "</div>",
+          "start": "<h4 class=\"price_text\">",
+          "finish": "</h4>",
           "extracts": [
             {
               "name": "cost",
@@ -81,8 +76,8 @@
         },
         {
           "name": "Specifications",
-          "start": "<ul class=\"illustrated-features illustrated-features--compact\">",
-          "finish": "</ul>",
+          "start": "<div class=\"features\">",
+          "finish": "</div>",
           "extracts": [
             {
               "name": "area",
@@ -96,161 +91,16 @@
           "start": "<div class=\"listing-search-item__info\">",
           "finish": "</div>"
         }
-      ],
-      "action": {
-        "urlFrom": "items.Link",
-        "waitFor": {
-          "findElement" : "Contact the estate agent",
-          "by" : "LinkText",
-          "waitSeconds": 5
-        },
-        "startWith": [
-          {
-            "name": "accept cookies",
-            "skipWhenNotFound": true,
-            "findElement": "onetrust-accept-btn-handler",
-            "by" : "Id",
-            "waitSeconds": 5,
-            "action": "click"
-          }
-        ],
-        "thenDo": [
-          {
-            "name": "Click on Plan a viewing",
-            "findElement": "Plan a viewing",
-            "by" : "LinkText",
-            "waitSeconds": 1,
-            "action": "click"
-          },
-          {
-            "name": "Write message to the agent",
-            "findElement": "/html/body/div[3]/div/div[1]/form/fieldset[1]/div[1]/div/textarea",
-            "by" : "XPath",
-            "waitSeconds": 1,
-            "action": "Fill",
-            "value": "Hi, I'm Alijanik"
-          },
-          {
-            "name": "Check Monday",
-            "findElement": "/html/body/div[3]/div/div[1]/form/fieldset[1]/div[2]/wc-choice-control/div/wc-checkbox-control[1]",
-            "by" : "XPath",
-            "waitSeconds": 1,
-            "action": "click"
-          },
-          {
-            "name": "Check Tuesday",
-            "findElement": "/html/body/div[3]/div/div[1]/form/fieldset[1]/div[2]/wc-choice-control/div/wc-checkbox-control[2]",
-            "by" : "XPath",
-            "waitSeconds": 1,
-            "action": "click"
-          },
-          {
-            "name": "Check Wednesday",
-            "findElement": "/html/body/div[3]/div/div[1]/form/fieldset[1]/div[2]/wc-choice-control/div/wc-checkbox-control[3]",
-            "by" : "XPath",
-            "waitSeconds": 1,
-            "action": "click"
-          },
-          {
-            "name": "Check Thursday",
-            "findElement": "/html/body/div[3]/div/div[1]/form/fieldset[1]/div[2]/wc-choice-control/div/wc-checkbox-control[4]",
-            "by" : "XPath",
-            "waitSeconds": 1,
-            "action": "click"
-          },
-          {
-            "name": "Check Friday",
-            "findElement": "/html/body/div[3]/div/div[1]/form/fieldset[1]/div[2]/wc-choice-control/div/wc-checkbox-control[5]",
-            "by" : "XPath",
-            "waitSeconds": 1,
-            "action": "click"
-          },
-          {
-            "name": "Check Morning",
-            "findElement": "/html/body/div[3]/div/div[1]/form/fieldset[1]/div[3]/wc-choice-control/div/wc-checkbox-control[1]",
-            "by" : "XPath",
-            "waitSeconds": 1,
-            "action": "click"
-          },
-          {
-            "name": "Check Afternoon",
-            "findElement": "/html/body/div[3]/div/div[1]/form/fieldset[1]/div[3]/wc-choice-control/div/wc-checkbox-control[2]",
-            "by" : "XPath",
-            "waitSeconds": 1,
-            "action": "click"
-          }
-        ],
-        "elseDo": [
-          {
-            "findElement": "Contact the estate agent",
-            "by": "LinkText",
-            "waitSeconds": 1,
-            "action": "click"
-          },
-          {
-            "name": "Write message to the agent",
-            "findElement": "/html/body/div[3]/div/div[1]/form/fieldset[1]/div/div/textarea",
-            "by" : "XPath",
-            "waitSeconds": 1,
-            "action": "Fill",
-            "value": "Hi, I'm Alijanik"
-          }
-        ],
-        "finishWith": [
-          {
-            "name": "Fill FirstName",
-            "findElement": "/html/body/div[3]/div/div[1]/form/fieldset[2]/div[1]/div/div/input",
-            "by" : "XPath",
-            "waitSeconds": 1,
-            "action": "fill",
-            "value": "My first name"
-          },
-          {
-            "name": "Fill LastName",
-            "findElement": "/html/body/div[3]/div/div[1]/form/fieldset[2]/div[2]/div/div/input",
-            "by" : "XPath",
-            "waitSeconds": 1,
-            "action": "fill",
-            "value": "My last name"
-          },
-          {
-            "name": "Fill Email Address",
-            "findElement": "/html/body/div[3]/div/div[1]/form/fieldset[2]/div[3]/div/div/input",
-            "by" : "XPath",
-            "waitSeconds": 1,
-            "action": "fill",
-            "value": "my.email@gmail.com"
-          },
-          {
-            "name": "Fill Phone",
-            "findElement": "/html/body/div[3]/div/div[1]/form/fieldset[2]/div[4]/div/div/input",
-            "by" : "XPath",
-            "waitSeconds": 1,
-            "action": "fill",
-            "value": "+31123456789"
-          },
-          {
-            "name": "Submit the data",
-            "findElement": "/html/body/div[3]/div/div[1]/form/div[2]/REMOVE_button_REMOVE",
-            "by" : "XPath",
-            "waitSeconds": 1,
-            "action": "submit"
-          }
-        ]
-      }
+      ]
     },
     {
-      "name": "Funda",
-      "useDriver": false,
+      "name": "funda-rent",
+      "useDriver": true,
       "url": "https://www.funda.nl",
-      "path": "/zoeken/huur?selected_area=%5B%22utrecht%22%5D&price=%22-1600%22&rooms=%222-%22",
+      "path": "/zoeken/huur?selected_area=%5B%22utrecht%22,%22amstelveen%22,%22amsterdam%22,%22hoofddorp%22,%22haarlem%22,%22zaandam%22%5D&price=%22-1300%22&rooms=%221-%22&energy_label=%5B%22B%22,%22A%22,%22A%2B%22,%22A%2B%2B%22,%22A%2B%2B%2B%22,%22A%2B%2B%2B%2B%22,%22A%2B%2B%2B%2B%2B%22%5D&publication_date=%223%22",
       "start": "\"><div data-test-id=\"search-result-item\"",
       "finish": "</div> <!----> <!----></div>",
-      "createUniqueKeyFrom": [
-        "items.postalCode",
-        "items.cost",
-        "items.area"
-      ],
+      "createUniqueKeyFrom": ["items.postalCode", "items.cost", "items.area"],
       "items": [
         {
           "name": "Title",
@@ -312,10 +162,10 @@
       ]
     },
     {
-      "name": "Hollan2Stay",
+      "name": "H2S-book-for-two-washing-machine-dish-washer",
       "useDriver": true,
-      "url": "https://holland2stay.com/residences",
-      "path": "?page=1&city%5Bfilter%5D=Utrecht%2C27&price%5Bfilter%5D=500-1600%2C500_1600",
+      "url": "https://holland2stay.com",
+      "path": "/residences?page=1&available_to_book%5Bfilter%5D=Available+to+book%2C179&maximum_number_of_persons%5Bfilter%5D=Two+%28only+couples%29%2C23&residence_facilities%5Bfilter%5D=Dishwasher%2C6116&residence_facilities%5Bfilter%5D=Washing+machine%2C6117",
       "queryParams": {},
       "start": "<div class=\"residence_block\">",
       "finish": "<div class=\"residence_block\">",
